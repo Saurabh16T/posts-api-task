@@ -14,9 +14,9 @@ exports.fileUpload = async (req, res) => {
 
     // Upload file to cloud(any of s3 or cloudinary) and get the file url
     
-    const fileUrl = await uploadService.uploadToS3(req.file); // for s3 upload (paid service)
+    // const fileUrl = await uploadService.uploadToS3(req.file); // for s3 upload (paid service)
     
-    // const fileUrl = await uploadService.uploadToCloudinary(req.file); // for cloudinary upload (free service suitable for testing purpose)
+    const fileUrl = await uploadService.uploadToCloudinary(req.file); // for cloudinary upload (free service suitable for testing purpose)
 
     return sendSuccess(res, {fileUrl}, STATUS_CODES.SUCCESS );
   } catch (err) {
