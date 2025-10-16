@@ -5,10 +5,10 @@ const uploadController = require('../controllers/upload');
 
 /**
  * @swagger
- * /upload:
+ * /upload/single:
  *
  *  post:
- *    summary: Upload a file
+ *    summary: Upload single file
  *
  *    tags:
  *      - Upload
@@ -33,6 +33,6 @@ const uploadController = require('../controllers/upload');
  *      401:
  *        description: Unauthorized
  */
-router.post('/', uploadService.upload.single('file'), uploadController.fileUpload);
+router.post('/single', uploadService.upload.single('file'), uploadController.fileUpload);
 
 module.exports = router;
