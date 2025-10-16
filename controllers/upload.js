@@ -6,7 +6,7 @@ const { sendSuccess, sendError } = require('../services/common');
 /**
  * @desc Handle file uploading on cloud
  */
-exports.fileUpload = async (req, res) => {
+exports.fileUpload = async (req, res, next) => {
   try {
     if (!req.file) {
       throw new Error(MSG.FILE_NOT_PROVIDED);
@@ -20,6 +20,6 @@ exports.fileUpload = async (req, res) => {
 
     return sendSuccess(res, {fileUrl}, STATUS_CODES.SUCCESS );
   } catch (err) {
-    return sendError(res, err.message, STATUS_CODES.BAD_REQUEST);
+    next(err)
   }
 };

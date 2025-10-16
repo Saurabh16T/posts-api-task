@@ -8,7 +8,7 @@ let ObjectId = mongoose.Schema.Types.ObjectId
  * @desc Add a new post
  * @body { title, description, tags, imageUrl }
  */
-exports.addPost = async (req, res) => {
+exports.addPost = async (req, res, next) => {
   try {
     let body = req.body;
 
@@ -19,7 +19,7 @@ exports.addPost = async (req, res) => {
 
     return sendSuccess(res, post, STATUS_CODES.CREATED );
   } catch (err) {
-    return sendError(res, err.message, STATUS_CODES.BAD_REQUEST);
+    next(err)
   }
 };
 
@@ -27,7 +27,7 @@ exports.addPost = async (req, res) => {
  * @desc Get all posts with filter, sort, pagination
  * @query page, limit, sortBy, order, tag, keyword
  */
-exports.getPosts = async (req, res) => {
+exports.getPosts = async (req, res, next) => {
   try {
     let { page = 1, limit = 10, sortBy = 'createdAt', order = 'desc', tag } = req.query;
 
@@ -51,7 +51,7 @@ exports.getPosts = async (req, res) => {
 
     return sendSuccess(res, posts, STATUS_CODES.SUCCESS );
   } catch (err) {
-    return sendError(res, err.message);
+    next(err)
   }
 };
 
@@ -59,7 +59,7 @@ exports.getPosts = async (req, res) => {
  * @desc Search posts by keyword in title or description
  * @query keyword
  */
-exports.searchPosts = async (req, res) => {
+exports.searchPosts = async (req, res, next) => {
   try {
     const { keywords } = req.query;
 
@@ -76,7 +76,7 @@ exports.searchPosts = async (req, res) => {
 
    return sendSuccess(res, posts, STATUS_CODES.SUCCESS );
   } catch (err) {
-    return sendError(res, err.message);
+    next(err)
   }
 };
 
@@ -84,7 +84,7 @@ exports.searchPosts = async (req, res) => {
  * @desc Filter posts by tag(s)
  * @query tags (comma-separated)
  */
-exports.filterByTags = async (req, res) => {
+exports.filterByTags = async (req, res, next) => {
   try {
     let tagIds = req.query.tags?.split(',') || [];
     tagIds = tagIds.map(id=> ObjectId(id));
@@ -92,6 +92,6 @@ exports.filterByTags = async (req, res) => {
 
     return sendSuccess(res, posts, STATUS_CODES.SUCCESS );
   } catch (err) {
-    return sendError(res, err.message);
+    next(err)
   }
 };
