@@ -6,6 +6,7 @@ const connection = require('./config/db');
 const routes = require('./routes/index');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.use(morgan('dev')); // for logging http requets
 app.get('/', (req, res) => res.send("Health check"));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/v1', routes);
+
+// Centralized error handling middleware
+app.use(errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 3000;
