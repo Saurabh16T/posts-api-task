@@ -1,3 +1,12 @@
+Project start steps :
+
+1. npm i (to install all dependencies)
+2. create .env file and put actual values, .env.example file is already there for refernce
+3. node server.js or npm start
+4. to see api docs go to swagger by - `${base_url}/api-docs`
+
+Code details :
+
 Clean and modular Node.js code structure for Posts APIs (add, get, filter).
 
 Well-documented using Swagger for clear and interactive API docs.
